@@ -12,5 +12,5 @@ class PageRoutesConstant {
   };
 
   static String get homeScreenPath => '/';
-  static String get myProgramPath => '/program';
+  static String get programPath => '/program';
 }
