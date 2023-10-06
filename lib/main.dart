@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: PageRoutesConstant.routes,
       navigatorKey: CustomRouter.navigatorKey,
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark(useMaterial3: true),
     );
   }
 }
