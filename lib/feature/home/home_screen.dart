@@ -1,4 +1,5 @@
 import 'package:case_study/core/extensions/context_extension.dart';
+import 'package:case_study/product/base/custom_navigation_bar.dart';
 import 'package:case_study/product/constats/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,23 +23,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: const CustomNavigationBar(
           currentIndex: 0,
-          onTap: (index) {
-            setState(() {
-              // _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
         ),
         body: CustomScrollView(
           slivers: [
@@ -46,6 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               pinned: true,
               floating: true,
               title: const Text(StringConstants.home),
+              centerTitle: true,
               expandedHeight: context.deviceHeight / 4,
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(context.deviceHeight / 6.5),
