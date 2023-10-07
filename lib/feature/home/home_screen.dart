@@ -1,6 +1,6 @@
-import 'package:case_study/core/extensions/context_extension.dart';
+import 'package:case_study/core/extension/context_extension.dart';
 import 'package:case_study/product/base/custom_navigation_bar.dart';
-import 'package:case_study/product/constats/string_constants.dart';
+import 'package:case_study/product/constat/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,8 +1,8 @@
 import 'package:case_study/core/utils/custom_router.dart';
-import 'package:case_study/product/constats/page_routes_constants.dart';
+import 'package:case_study/product/constat/page_routes_constants.dart';
 import 'package:flutter/material.dart';
 
-import '../constats/string_constants.dart';
+import '../constat/string_constants.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({required this.currentIndex, super.key});
