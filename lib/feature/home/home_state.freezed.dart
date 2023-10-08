@@ -16,7 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeState {
-  String? get testString => throw _privateConstructorUsedError;
+  List<ExerciseModel> get exerciseList => throw _privateConstructorUsedError;
+  List<String> get suggestionList => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  List<String> get selectedMuscleList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -28,7 +32,12 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({String? testString});
+  $Res call(
+      {List<ExerciseModel> exerciseList,
+      List<String> suggestionList,
+      bool isLoading,
+      String type,
+      List<String> selectedMuscleList});
 }
 
 /// @nodoc
@@ -44,13 +53,33 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? testString = freezed,
+    Object? exerciseList = null,
+    Object? suggestionList = null,
+    Object? isLoading = null,
+    Object? type = null,
+    Object? selectedMuscleList = null,
   }) {
     return _then(_value.copyWith(
-      testString: freezed == testString
-          ? _value.testString
-          : testString // ignore: cast_nullable_to_non_nullable
-              as String?,
+      exerciseList: null == exerciseList
+          ? _value.exerciseList
+          : exerciseList // ignore: cast_nullable_to_non_nullable
+              as List<ExerciseModel>,
+      suggestionList: null == suggestionList
+          ? _value.suggestionList
+          : suggestionList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedMuscleList: null == selectedMuscleList
+          ? _value.selectedMuscleList
+          : selectedMuscleList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -63,7 +92,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? testString});
+  $Res call(
+      {List<ExerciseModel> exerciseList,
+      List<String> suggestionList,
+      bool isLoading,
+      String type,
+      List<String> selectedMuscleList});
 }
 
 /// @nodoc
@@ -77,13 +111,33 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? testString = freezed,
+    Object? exerciseList = null,
+    Object? suggestionList = null,
+    Object? isLoading = null,
+    Object? type = null,
+    Object? selectedMuscleList = null,
   }) {
     return _then(_$HomeStateImpl(
-      testString: freezed == testString
-          ? _value.testString
-          : testString // ignore: cast_nullable_to_non_nullable
-              as String?,
+      exerciseList: null == exerciseList
+          ? _value._exerciseList
+          : exerciseList // ignore: cast_nullable_to_non_nullable
+              as List<ExerciseModel>,
+      suggestionList: null == suggestionList
+          ? _value._suggestionList
+          : suggestionList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedMuscleList: null == selectedMuscleList
+          ? _value._selectedMuscleList
+          : selectedMuscleList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -91,14 +145,53 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.testString});
+  const _$HomeStateImpl(
+      {final List<ExerciseModel> exerciseList = const [],
+      final List<String> suggestionList = const [],
+      this.isLoading = false,
+      this.type = "",
+      final List<String> selectedMuscleList = const []})
+      : _exerciseList = exerciseList,
+        _suggestionList = suggestionList,
+        _selectedMuscleList = selectedMuscleList;
+
+  final List<ExerciseModel> _exerciseList;
+  @override
+  @JsonKey()
+  List<ExerciseModel> get exerciseList {
+    if (_exerciseList is EqualUnmodifiableListView) return _exerciseList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exerciseList);
+  }
+
+  final List<String> _suggestionList;
+  @override
+  @JsonKey()
+  List<String> get suggestionList {
+    if (_suggestionList is EqualUnmodifiableListView) return _suggestionList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_suggestionList);
+  }
 
   @override
-  final String? testString;
+  @JsonKey()
+  final bool isLoading;
+  @override
+  @JsonKey()
+  final String type;
+  final List<String> _selectedMuscleList;
+  @override
+  @JsonKey()
+  List<String> get selectedMuscleList {
+    if (_selectedMuscleList is EqualUnmodifiableListView)
+      return _selectedMuscleList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedMuscleList);
+  }
 
   @override
   String toString() {
-    return 'HomeState(testString: $testString)';
+    return 'HomeState(exerciseList: $exerciseList, suggestionList: $suggestionList, isLoading: $isLoading, type: $type, selectedMuscleList: $selectedMuscleList)';
   }
 
   @override
@@ -106,12 +199,25 @@ class _$HomeStateImpl implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
-            (identical(other.testString, testString) ||
-                other.testString == testString));
+            const DeepCollectionEquality()
+                .equals(other._exerciseList, _exerciseList) &&
+            const DeepCollectionEquality()
+                .equals(other._suggestionList, _suggestionList) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedMuscleList, _selectedMuscleList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, testString);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_exerciseList),
+      const DeepCollectionEquality().hash(_suggestionList),
+      isLoading,
+      type,
+      const DeepCollectionEquality().hash(_selectedMuscleList));
 
   @JsonKey(ignore: true)
   @override
@@ -121,10 +227,23 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final String? testString}) = _$HomeStateImpl;
+  const factory _HomeState(
+      {final List<ExerciseModel> exerciseList,
+      final List<String> suggestionList,
+      final bool isLoading,
+      final String type,
+      final List<String> selectedMuscleList}) = _$HomeStateImpl;
 
   @override
-  String? get testString;
+  List<ExerciseModel> get exerciseList;
+  @override
+  List<String> get suggestionList;
+  @override
+  bool get isLoading;
+  @override
+  String get type;
+  @override
+  List<String> get selectedMuscleList;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
