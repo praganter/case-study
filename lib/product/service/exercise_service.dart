@@ -5,7 +5,7 @@ import '../../core/api/http_manager.dart';
 class ExerciseService {
   static Future<List<ExerciseModel>> fetchExerciseList(String name, String type) async {
     List<ExerciseModel> exerciseList = [];
-    Map<String, String> parameters = {"name": name, "type": type};
+    Map<String, String> parameters = {"name": name};
     if (type.isNotEmpty) parameters.putIfAbsent("type", () => type);
     dynamic response = await HttpManager.get(parameters);
     if (response != null) {
