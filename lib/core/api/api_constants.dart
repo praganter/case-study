@@ -28,5 +28,6 @@ class ApiConstants {
     "strength",
     "stretching",
     "strongman",
+    "",
   ];
 }
