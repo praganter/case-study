@@ -10,28 +10,52 @@ final homeProvider = StateNotifierProvider<HomeProvider, HomeState>((ref) {
 class HomeProvider extends StateNotifier<HomeState> {
   HomeProvider() : super(const HomeState());
 
-  fetctExerciseList(String name, {String type = ""}) async {
+  fetctExerciseList(String name) async {
     state = state.copyWith(isLoading: true);
-    var tempList = await ExerciseService.fetchExerciseList(name, type);
+    var exerciseList = await ExerciseService.fetchExerciseList(name, state.type);
     if (state.selectedMuscleList.isNotEmpty) {
-      _filteredList(tempList);
+      _filterList(exerciseList);
+    } else {
+      state = state.copyWith(exerciseList: exerciseList);
     }
-    _suggestionList();
+    _suggestionList(exerciseList);
     state = state.copyWith(isLoading: false);
   }
 
-  _filteredList(List<ExerciseModel> exerciseList) {
-    exerciseList.where((exercise) => state.selectedMuscleList.contains(exercise.muscle)).toList();
-    state = state.copyWith(exerciseList: exerciseList);
+  _filterList(List<ExerciseModel> exerciseList) {
+    var filteredList = exerciseList.where((exercise) => state.selectedMuscleList.contains(exercise.muscle)).toList();
+    state = state.copyWith(exerciseList: filteredList);
   }
 
-  _suggestionList() {
+  _suggestionList(List<ExerciseModel> exerciseList) {
     List<String> suggestionList = [];
-    for (var item in state.exerciseList) {
+    for (var item in exerciseList) {
       if (item.muscle != null) {
-        suggestionList.add(item.muscle!);
+        suggestionList.add(item.name!);
       }
     }
     state = state.copyWith(suggestionList: suggestionList);
+  }
+
+  addSelectedMuscle(String selected) {
+    List<String> list = [];
+    list.addAll(state.selectedMuscleList);
+    list.add(selected);
+    state = state.copyWith(selectedMuscleList: list);
+  }
+
+  removeSelectedMuscle(String removed) {
+    List<String> list = [];
+    list.addAll(state.selectedMuscleList);
+    list.remove(removed);
+    state = state.copyWith(selectedMuscleList: list);
+  }
+
+  setType(String type) {
+    state = state.copyWith(type: type);
+  }
+
+  clearAllFilters() {
+    state = state.copyWith(type: "", selectedMuscleList: []);
   }
 }
