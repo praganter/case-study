@@ -26,6 +26,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
       ),
       floatingActionButton: RawMaterialButton(
         onPressed: () {
+          ref.read(homeProvider.notifier).fetctExerciseList("");
           CustomRouter.pop();
         },
         elevation: 2.0,

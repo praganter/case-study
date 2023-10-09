@@ -4,8 +4,11 @@ import 'package:case_study/feature/home/home_provider.dart';
 import 'package:case_study/product/base/custom_navigation_bar.dart';
 import 'package:case_study/product/constat/page_routes_constants.dart';
 import 'package:case_study/product/constat/string_constants.dart';
+import 'package:case_study/product/theme/custom_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../program/program_provider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -16,10 +19,19 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController searchTec = TextEditingController();
+  final TextEditingController itemTec = TextEditingController();
 
   @override
   void initState() {
+    Future.microtask(() => ref.read(programProvider.notifier).fetchProgramList(StringConstants.programBox));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchTec.dispose();
+    itemTec.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,7 +47,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           shrinkWrap: true,
           anchor: 0.7,
           slivers: [
-            const HomeSliverAppBar(),
+            HomeSliverAppBar(
+              searchTec: searchTec,
+            ),
             if (ref.watch(homeProvider).isLoading)
               const SliverToBoxAdapter(
                 child: Center(
@@ -46,58 +60,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               delegate: SliverChildBuilderDelegate(
                 childCount: ref.watch(homeProvider).exerciseList.length,
                 (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.blueGrey,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 9,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Name : ${ref.read(homeProvider).exerciseList[index].name!}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text("Type : ${ref.read(homeProvider).exerciseList[index].type!}"),
-                                      Text("Muscle : ${ref.read(homeProvider).exerciseList[index].muscle!}"),
-                                    ],
-                                  ),
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () async {},
-                                        icon: const Icon(
-                                          Icons.add_rounded,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  return _ExerciseContainer(
+                    index: index,
+                    itemTec: itemTec,
                   );
                 },
               ),
@@ -109,8 +74,132 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
+class _ExerciseContainer extends ConsumerWidget {
+  final int index;
+  final TextEditingController itemTec;
+  const _ExerciseContainer({required this.index, required this.itemTec});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.blueGrey,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          StringConstants.name + ref.read(homeProvider).exerciseList[index].name!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(StringConstants.type + ref.read(homeProvider).exerciseList[index].type!),
+                        Text(StringConstants.muscle + ref.read(homeProvider).exerciseList[index].muscle!),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        PopupMenuButton(
+                          icon: const Icon(Icons.add),
+                          itemBuilder: (context) {
+                            return [
+                              for (var i = 0; i < ref.watch(programProvider).programList.length; i++)
+                                PopupMenuItem(
+                                  child: Text(
+                                    ref.watch(programProvider).programList[i],
+                                  ),
+                                  onTap: () {
+                                    ref.read(programProvider.notifier).addExerciseToProgram(
+                                        ref.read(programProvider).programList[i],
+                                        ref.read(homeProvider).exerciseList[index]);
+                                  },
+                                ),
+                              PopupMenuItem(
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return Material(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context).padding.bottom +
+                                                  MediaQuery.of(context).viewInsets.bottom),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(top: 10.0),
+                                                child: Text(
+                                                  StringConstants.nameOfNewProgram,
+                                                  style: CustomTextStyle.mediumTitle,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                                                child: TextField(
+                                                  controller: itemTec,
+                                                  autocorrect: false,
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                child: const Text(StringConstants.addNew),
+                                                onPressed: () async {
+                                                  await ref
+                                                      .read(programProvider.notifier)
+                                                      .addProgram(StringConstants.programBox, itemTec.text);
+                                                  itemTec.clear();
+                                                  CustomRouter.pop();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  StringConstants.addNew,
+                                ),
+                              ),
+                            ];
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class HomeSliverAppBar extends ConsumerWidget {
+  final TextEditingController searchTec;
   const HomeSliverAppBar({
+    required this.searchTec,
     super.key,
   });
 
@@ -145,9 +234,9 @@ class HomeSliverAppBar extends ConsumerWidget {
                       onSelected: (option) {
                         ref.read(homeProvider.notifier).fetctExerciseList(option);
                       },
-                      fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
+                      fieldViewBuilder: (context, searchTec, focusNode, onFieldSubmitted) {
                         return TextField(
-                          controller: textEditingController,
+                          controller: searchTec,
                           focusNode: focusNode,
                           onEditingComplete: onFieldSubmitted,
                           decoration: InputDecoration(
@@ -203,7 +292,10 @@ class HomeSliverAppBar extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: Chip(
                             label: Text(ref.watch(homeProvider).type),
-                            onDeleted: () => ref.read(homeProvider.notifier).setType(""),
+                            onDeleted: () async {
+                              ref.read(homeProvider.notifier).setType("");
+                              await ref.read(homeProvider.notifier).fetctExerciseList(searchTec.text);
+                            },
                           ),
                         ),
                       Row(
@@ -213,9 +305,12 @@ class HomeSliverAppBar extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               label: Text(ref.watch(homeProvider).selectedMuscleList[index]),
-                              onDeleted: () => ref
-                                  .read(homeProvider.notifier)
-                                  .removeSelectedMuscle(ref.read(homeProvider).selectedMuscleList[index]),
+                              onDeleted: () async {
+                                ref
+                                    .read(homeProvider.notifier)
+                                    .removeSelectedMuscle(ref.read(homeProvider).selectedMuscleList[index]);
+                                await ref.read(homeProvider.notifier).fetctExerciseList(searchTec.text);
+                              },
                             ),
                           ),
                         ),
