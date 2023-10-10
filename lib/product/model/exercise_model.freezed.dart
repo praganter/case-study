@@ -20,12 +20,18 @@ ExerciseModel _$ExerciseModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ExerciseModel {
-  String? get name => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-  String? get muscle => throw _privateConstructorUsedError;
-  String? get equipment => throw _privateConstructorUsedError;
-  String? get difficulty => throw _privateConstructorUsedError;
-  String? get instructions => throw _privateConstructorUsedError;
+  @HiveField(0)
+  String get name => throw _privateConstructorUsedError;
+  @HiveField(1)
+  String get type => throw _privateConstructorUsedError;
+  @HiveField(2)
+  String get muscle => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String get equipment => throw _privateConstructorUsedError;
+  @HiveField(4)
+  String get difficulty => throw _privateConstructorUsedError;
+  @HiveField(5)
+  String get instructions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,12 +46,12 @@ abstract class $ExerciseModelCopyWith<$Res> {
       _$ExerciseModelCopyWithImpl<$Res, ExerciseModel>;
   @useResult
   $Res call(
-      {String? name,
-      String? type,
-      String? muscle,
-      String? equipment,
-      String? difficulty,
-      String? instructions});
+      {@HiveField(0) String name,
+      @HiveField(1) String type,
+      @HiveField(2) String muscle,
+      @HiveField(3) String equipment,
+      @HiveField(4) String difficulty,
+      @HiveField(5) String instructions});
 }
 
 /// @nodoc
@@ -61,38 +67,38 @@ class _$ExerciseModelCopyWithImpl<$Res, $Val extends ExerciseModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? type = freezed,
-    Object? muscle = freezed,
-    Object? equipment = freezed,
-    Object? difficulty = freezed,
-    Object? instructions = freezed,
+    Object? name = null,
+    Object? type = null,
+    Object? muscle = null,
+    Object? equipment = null,
+    Object? difficulty = null,
+    Object? instructions = null,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      muscle: freezed == muscle
+              as String,
+      muscle: null == muscle
           ? _value.muscle
           : muscle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      equipment: freezed == equipment
+              as String,
+      equipment: null == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
-              as String?,
-      difficulty: freezed == difficulty
+              as String,
+      difficulty: null == difficulty
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instructions: freezed == instructions
+              as String,
+      instructions: null == instructions
           ? _value.instructions
           : instructions // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -106,12 +112,12 @@ abstract class _$$ExerciseModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? name,
-      String? type,
-      String? muscle,
-      String? equipment,
-      String? difficulty,
-      String? instructions});
+      {@HiveField(0) String name,
+      @HiveField(1) String type,
+      @HiveField(2) String muscle,
+      @HiveField(3) String equipment,
+      @HiveField(4) String difficulty,
+      @HiveField(5) String instructions});
 }
 
 /// @nodoc
@@ -125,68 +131,81 @@ class __$$ExerciseModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? type = freezed,
-    Object? muscle = freezed,
-    Object? equipment = freezed,
-    Object? difficulty = freezed,
-    Object? instructions = freezed,
+    Object? name = null,
+    Object? type = null,
+    Object? muscle = null,
+    Object? equipment = null,
+    Object? difficulty = null,
+    Object? instructions = null,
   }) {
     return _then(_$ExerciseModelImpl(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      muscle: freezed == muscle
+              as String,
+      muscle: null == muscle
           ? _value.muscle
           : muscle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      equipment: freezed == equipment
+              as String,
+      equipment: null == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
-              as String?,
-      difficulty: freezed == difficulty
+              as String,
+      difficulty: null == difficulty
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instructions: freezed == instructions
+              as String,
+      instructions: null == instructions
           ? _value.instructions
           : instructions // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ExerciseModelImpl implements _ExerciseModel {
-  const _$ExerciseModelImpl(
-      {this.name,
-      this.type,
-      this.muscle,
-      this.equipment,
-      this.difficulty,
-      this.instructions});
+class _$ExerciseModelImpl extends _ExerciseModel {
+  _$ExerciseModelImpl(
+      {@HiveField(0) this.name = "",
+      @HiveField(1) this.type = "",
+      @HiveField(2) this.muscle = "",
+      @HiveField(3) this.equipment = "",
+      @HiveField(4) this.difficulty = "",
+      @HiveField(5) this.instructions = ""})
+      : super._();
 
   factory _$ExerciseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExerciseModelImplFromJson(json);
 
   @override
-  final String? name;
+  @JsonKey()
+  @HiveField(0)
+  final String name;
   @override
-  final String? type;
+  @JsonKey()
+  @HiveField(1)
+  final String type;
   @override
-  final String? muscle;
+  @JsonKey()
+  @HiveField(2)
+  final String muscle;
   @override
-  final String? equipment;
+  @JsonKey()
+  @HiveField(3)
+  final String equipment;
   @override
-  final String? difficulty;
+  @JsonKey()
+  @HiveField(4)
+  final String difficulty;
   @override
-  final String? instructions;
+  @JsonKey()
+  @HiveField(5)
+  final String instructions;
 
   @override
   String toString() {
@@ -228,30 +247,37 @@ class _$ExerciseModelImpl implements _ExerciseModel {
   }
 }
 
-abstract class _ExerciseModel implements ExerciseModel {
-  const factory _ExerciseModel(
-      {final String? name,
-      final String? type,
-      final String? muscle,
-      final String? equipment,
-      final String? difficulty,
-      final String? instructions}) = _$ExerciseModelImpl;
+abstract class _ExerciseModel extends ExerciseModel {
+  factory _ExerciseModel(
+      {@HiveField(0) final String name,
+      @HiveField(1) final String type,
+      @HiveField(2) final String muscle,
+      @HiveField(3) final String equipment,
+      @HiveField(4) final String difficulty,
+      @HiveField(5) final String instructions}) = _$ExerciseModelImpl;
+  _ExerciseModel._() : super._();
 
   factory _ExerciseModel.fromJson(Map<String, dynamic> json) =
       _$ExerciseModelImpl.fromJson;
 
   @override
-  String? get name;
+  @HiveField(0)
+  String get name;
   @override
-  String? get type;
+  @HiveField(1)
+  String get type;
   @override
-  String? get muscle;
+  @HiveField(2)
+  String get muscle;
   @override
-  String? get equipment;
+  @HiveField(3)
+  String get equipment;
   @override
-  String? get difficulty;
+  @HiveField(4)
+  String get difficulty;
   @override
-  String? get instructions;
+  @HiveField(5)
+  String get instructions;
   @override
   @JsonKey(ignore: true)
   _$$ExerciseModelImplCopyWith<_$ExerciseModelImpl> get copyWith =>
