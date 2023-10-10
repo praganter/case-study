@@ -30,9 +30,7 @@ class HomeProvider extends StateNotifier<HomeState> {
   _suggestionList(List<ExerciseModel> exerciseList) {
     List<String> suggestionList = [];
     for (var item in exerciseList) {
-      if (item.muscle != null) {
-        suggestionList.add(item.name!);
-      }
+      suggestionList.add(item.name);
     }
     state = state.copyWith(suggestionList: suggestionList);
   }

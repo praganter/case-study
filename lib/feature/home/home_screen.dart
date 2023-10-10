@@ -104,12 +104,12 @@ class _ExerciseContainer extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          StringConstants.name + ref.read(homeProvider).exerciseList[index].name!,
+                          StringConstants.name + ref.read(homeProvider).exerciseList[index].name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Text(StringConstants.type + ref.read(homeProvider).exerciseList[index].type!),
-                        Text(StringConstants.muscle + ref.read(homeProvider).exerciseList[index].muscle!),
+                        Text(StringConstants.type + ref.read(homeProvider).exerciseList[index].type),
+                        Text(StringConstants.muscle + ref.read(homeProvider).exerciseList[index].muscle),
                       ],
                     ),
                   ),
